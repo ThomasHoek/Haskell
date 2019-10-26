@@ -50,14 +50,22 @@ grid = ([False,False,False,False,False], -- x left
 --     [False],                         -- y curr
 --     [False,False..])                 -- y right
 
+--  add state: state up -> do left change state to left
+          -- state left -> do down change state to down
+         -- state down -> do right change state to right
+         -- state right -> do right change state to up
+
+        --  state turn clockwise if false,false
+        -- state turn anti clockwise if true,true
+
+-- if false,false -> change both to true and do clockwise
+-- if false,true -> change the false to true and do clockwise
+-- if true,false -> change the false to true and do clockwise
+-- if true, true -> change the true which got changed to false and do anti clockwise        
+        --      ||
+        --     \||/
+        --      \/
+--  left (true true) -> up (true,false)
+--  the x-axis does not change. Thus we only change the y-axis.
+
         
--- tape = ([],repeat [1.])
-
--- main = do
---         let tape' = up tape        -- ([],[1..], [[1..],[1..]....])
---         let tape'' = up tape'      -- ([1..],[1..], [[1..],[1..]....])
---         let tape''' = up tape''     -- ([[1..].[1..], [1..], [[1..],[1..]....])
---         let tape''' = down tape''    -- ([],[1..], [[1..],[1..]....])
---         let tape'''' = down tape'''   -- ([],[], [[1..],[1..]....])
-
-            
