@@ -1,11 +1,3 @@
--- main :: IO()
--- main = putStr "Hello World"
-
-
---       /<<<<<<<<<<<<<<\left/<<<<<<<<<<<<<<\
---- [1,2,3].. , ([1,2,3],[1,2,3],[1,2,3]), [1,2,3]..
--- replace middle one with outer left.
-
 type Cell a = [Bool]
 type Grid a = (Cell a,Cell a, Cell a,Cell a, Cell a, Cell a)
 
