@@ -1,9 +1,11 @@
 type Cell = [Bool]
 type Grid = (Cell ,Cell , Cell ,Cell , Cell , Cell )
 
+
 data LastMove = MoveLeft | MoveDown | MoveRight | MoveUp deriving(Show, Eq, Ord)
 
-type Move = (LastMove, Cell)
+type XYlocation = [Bool,Bool]
+type Move = (LastMove, XYlocation)
 
 
 anticlockwise :: LastMove -> LastMove
@@ -29,10 +31,10 @@ gameStatus (a,b)
         | otherwise = anticlockwise a
 
 move :: Move
-move = (MoveLeft, [True])
+move = (MoveLeft, [True,True])
         
 move2 :: Move
-move2 = (MoveLeft, [False])
+move2 = (MoveLeft, [False,True])
         
         
  --  add state: state up -> do left change state to left
