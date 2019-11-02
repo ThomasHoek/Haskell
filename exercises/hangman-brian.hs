@@ -18,9 +18,6 @@ inputToGuess []    = ' '
 inputToGuess (x:_) = x
 
 type GameMonad = StateT GameState IO
--- handleGuess :: Letter -> TheWord -> (GameState -> GameState)
--- printGame :: GameState -> IO ()
--- gameStatus :: GameState -> Status  -- Win | Lose | Continue
 
 game :: GameMonad ()               -- State/IO actie met return ()
 game = do gs@(word, _) <- get

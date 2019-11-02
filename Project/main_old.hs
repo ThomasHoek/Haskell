@@ -4,7 +4,7 @@ type Grid = (Cell ,Cell , Cell ,Cell , Cell , Cell )
 
 data LastMove = MoveLeft | MoveDown | MoveRight | MoveUp deriving(Show, Eq, Ord)
 
-type XYlocation = [Bool,Bool]
+type XYlocation = (Bool, Bool)
 type Move = (LastMove, XYlocation)
 
 
@@ -25,18 +25,17 @@ clockwise a
         | otherwise = MoveUp
 
 
-gameStatus :: Move -> LastMove
-gameStatus (a,b) 
-        | head b = clockwise a
-        | otherwise = anticlockwise a
+gameStatus :: Move -> Move
+gameStatus (a,(b,c)) 
+        | b && c = (anticlockwise a, (b,c))
+        | b = (clockwise a,(b,c))
+        | c = (clockwise a,(b,c))
+        | otherwise = (clockwise a,(b,c))
 
 move :: Move
-move = (MoveLeft, [True,True])
+move = (MoveUp, (False,False))
         
-move2 :: Move
-move2 = (MoveLeft, [False,True])
-        
-        
+
  --  add state: state up -> do left change state to left
           -- state left -> do down change state to down
          -- state down -> do right change state to right
@@ -44,8 +43,6 @@ move2 = (MoveLeft, [False,True])
 
         --  state turn clockwise if false,false
         -- state turn anti clockwise if true,true       
-
-
 
 
 up :: Grid -> Grid
@@ -70,7 +67,7 @@ right (a,b,c,d,e,f)
             | not $ head e = (a,b,c,init d, [last d], True : f)
             | otherwise = (a,b,c,init d, [last d], False : f)
             
-
+ 
             
 
 grid :: Grid
