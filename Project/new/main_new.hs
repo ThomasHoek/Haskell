@@ -34,13 +34,14 @@ grid f = origin
             ,east = growEast (x-1) y (z ++ [(x-1,y)]) self
             ,south = growSouth x (y-1) (z ++ [(x,y-1)]) self
             ,west = growWest (x+1) y (z ++ [(x+1,y)]) self
-            ,left = growEast  (-1) 0 ([(0,0)] ++ [(-1,0)]) origin
-            ,right = growWest  1 0 ([(0,0)] ++ [(1,0)]) origin
+            ,left = growEast (x-1) y (z ++ [(x-1,y)]) self
+            ,right = growWest (x+1) y (z ++ [(x+1,y)]) self
             }
 
 
     growEast x y z s = self
         where
+
         self = Node
             { contents = f x y z
             ,north = growNorth x (y+1) (z ++ [(x,y+1)]) self
@@ -50,6 +51,20 @@ grid f = origin
             ,left = growSouth x (y-1) (z ++ [(x,y-1)]) self
             ,right = growNorth x (y+1) (z ++ [(x,y+1)]) self
             }
+
+
+    growSouth x y z s = self
+        where
+        self = Node
+            { contents = f x y z
+            ,north = growNorth x (y+1) (z ++ [(x,y+1)]) self
+            ,east = growEast (x-1) y (z ++ [(x-1,y)]) self
+            ,south = growSouth x (y-1) (z ++ [(x,y-1)]) self
+            ,west = growWest (x+1) y (z ++ [(x+1,y)]) self
+            ,left = growEast (x-1) y (z ++ [(x-1,y)]) self
+            ,right = growWest (x+1) y (z ++ [(x+1,y)]) self
+            }
+    
 
     growWest x y z s = self
         where
@@ -64,26 +79,13 @@ grid f = origin
             }
 
 
-    growSouth x y z s = self
-        where
-        self = Node
-            { contents = f x y z
-            ,north = growNorth x (y+1) (z ++ [(x,y+1)]) self
-            ,east = growEast (x-1) y (z ++ [(x-1,y)]) self
-            ,south = growSouth x (y-1) (z ++ [(x,y-1)]) self
-            ,west = growWest (x+1) y (z ++ [(x+1,y)]) self
-            ,left = growWest (x+1) y (z ++ [(x+1,y)]) self
-            ,right = growWest  1 0 ([(0,0)] ++ [(1,0)]) origin
-            }
-
-
 -- coordsInList :: (Integer, Integer) -> [(Integer, Integer)]  -> Bool
 -- coordsInList a b =  a `elem` b
             
 showMainTest :: (Integer, Integer, [(Integer,Integer)]) -> [(Integer,Integer)]
 showMainTest (a,b,c) = c
             
--- moveAnt ::  Node(Integer, Integer, [(Integer, Integer)]) 
+
 
 
 mainTest :: [(Integer,Integer)]
@@ -106,6 +108,7 @@ main = print mainTest
 -- http://haskell.1045720.n5.nabble.com/Infinite-grid-td3125863.html         
 -- let o = grid (\x y -> trace ("compute " ++ show (x,y)) (x,y)) 
 -- let o = grid (\x y z -> trace ("compute " ++ show (x,y,z)) (x,y,z)) 
+-- let o = grid (\x y z -> trace (show(x,y,z)) (x,y,z)) 
 -- contents o 
 -- contents . north $  o 
 -- contents . north . north . north . north . north $ o
