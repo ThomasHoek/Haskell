@@ -44,7 +44,7 @@ move = (MoveUp, (False,False))
         --  state turn clockwise if false,false
         -- state turn anti clockwise if true,true       
 
-
+-----------------------------------------------------------
 up :: Grid -> Grid
 up (a, b, c:cx, d, e, f)
             | not $ head b =  (a ++ [True], [c], cx,d,e,f)

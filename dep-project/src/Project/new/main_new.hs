@@ -82,7 +82,7 @@ grid f = origin
 -- coordsInList :: (Integer, Integer) -> [(Integer, Integer)]  -> Bool
 -- coordsInList a b =  a `elem` b
             
-showMainTest :: (Integer, Integer, [(Integer,Integer)]) -> [(Integer,Integer)]
+showMainTest :: GridInformation -> [(Integer,Integer)]
 showMainTest (a,b,c) = c
             
 

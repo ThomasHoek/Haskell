@@ -1,0 +1,109 @@
+Ik begon eerst in main_old.hs.
+Daar probeerde ik te werken met zippers. Eerst probeerde ik een zipper met daarin een zipper. 
+(xas,(yas, (x,y)yas)xas)
+
+Maar het lukte me niet om de binnenste zipper met de buitenste zipper te latten zippen.
+Daarom maakte ik main_test_old aan om wat plannen voor mezelf met zippers te maken. 
+
+Daarvan leek uiteindelijk de laatste, 2 losse zippers in 1 zipper het beste. 
+Toen ik uiteindelijk de zipper af had begon ik aan states om te zorgen dat er vanzelf 
+gezipt werdt. Dit was niet handig omdat ik de zippers niet goed genoeg getest had.
+
+Toen de states af waren had ik eerst allerlij errors.
+Daarom ging ik terug naar een simpeler model van de state.
+Toen ik dat simpelere model ging testen kreeg ik fouten met de X en Y-as.
+
+Stel:
+
+(x,y)
+
+[False/False][False/False][False/False]
+[False/False][ANT        ][False/False]
+[False/False][False/False][False/False]
+
+Als ik dan left heb gedaan op me zipper gebeurde dit:
+
+[False/False][A : F / T  ][False/False]
+[True /False][True / True][True /False]
+[False/False][False/True ][False/False]
+
+Ik veranderde de X en de Y as van waarop ik stond naar True.
+nochmaals left: 
+
+[A  Fal/True][True / True][True /False]
+[True /False][True / True][True /False]
+[False/False][False/ True][False/False]
+
+
+Waar het mis gaat is de derde keer left:
+
+[True /True][True / True][True /False]
+[True /True][True / True][True /False]
+[False/True][False/ True][False/False]
+
+Het vierde vakje is nu True / True. Terwijl onze mier daar nooit op is gekomen.
+Dit komt omdat vakje 1 de Y as naar True zet.
+En vakje 5 zet de X as naar True.
+
+In coordinaten:
+(0,0) 
+(1,0) (1,1)
+
+op (1,1) -> zet de x-as van 1 op True.
+op (0,0) -> zet de y-as van 0 op True
+in (1,0) -> door (1,1) en (0,0) is het nu True.
+
+Door dit gehele probleem met zippers en een simpele state kon in niet aan de slag.
+
+Daardoor ging ik op internet zoeken naar een 2D grid met zippers.
+https://stackoverflow.com/questions/8905030/two-dimensional-zipper
+
+erop terug kijkend misschien kon ik iets doen zoals dit:
+https://en.wikibooks.org/wiki/Haskell/Zippers
+
+
+Maar zoekend naar een manier om een 2D te maken vond ik uiteindelijk deze website:
+http://haskell.1045720.n5.nabble.com/Infinite-grid-td3125863.html
+
+
+Daarvan heb ik uiteindelijk deze code genomen omdat het makkelijk te begrepen leek.
+http://haskell.1045720.n5.nabble.com/Infinite-grid-tp3125863p3125867.html
+
+Ik had daarna niet verder gelezen en dus ook de code erna niet gelezen.
+
+Nu ik terug kijk:
+De code die hier staat vond ik te complex maar werkt eigenlijk gewoon hetzelfde en waarschijnlijk sneller.
+http://haskell.1045720.n5.nabble.com/Infinite-grid-tp3125863p3125867.html
+
+Ik las ook dat deze code  voor een dungeon game gebruikt zou worden. 
+Dus het bewegen over de grid zou geen probleem worden. Alleen moest ik wel de vorige stappen weten.
+Daarom rommelde ik lang rond om te zorgen dat grid een lijst had.
+Ik testen eerst alleen rond met origin. 
+De uiteindelijke reden waarom het niet werkte was omdat ik trace niet aangepast had. 
+Nadat ik trace aangepast had begon ik met north. Daarna East etc.
+
+Toen ik alles van NESW erin had staan maakte ik een kopie van de file en noemde het main_test_old.hs
+Daarin zorde ik dat ik alleen left en right had.
+
+Nadat ik alleen left en right overhield begon ik aan: nextMoveAnt
+Ik wilde zorgen dat als ik in de terminal een Grid, in de file had ik toen noch geen type ervoor aangemaakt,
+erin plaats hij een left of right terug geeft. Daarvoor had ik uiteindelijk count nodig:
+https://stackoverflow.com/questions/19554984/haskell-count-occurrences-function
+
+In de lijst append ik steeds de nieuwe coordinaten en door middel van `mod` 2 = 1 wist ik of een waarde True of False was.
+Hier  maakte ik een loop voor aan: mainLoop
+Zodat de grid met de  state de nieuwe grid werdt.
+mainTest gebruikte ik om mee te testen, en later om de stappen te laten zien.
+uiteindelijk maakte ik een main aan om de functie snel en vlot te laten runnen.
+
+
+Toen ging ik naar u om te vragen hoe ik met stack, cabal en haddock moest werken.
+Van daar ben ik gaan werken aan visualisatie. Daardoor heb ik in de stack file displayMoves aangemaakt.
+Door middel van list comprehension heb ik een grid gemaakt van de minimale en maximale waarde van  X en Y. 
+en daarna in het grid de waardes te vervangen als ze wel of niet in de vorige stappen voorkwamen.
+
+Ook heb ik aangepast dat de list na elke right wordt gecleant zodat er niet onnodig ruimte wordt opgenomen.
+Daarna heb ik types aangemaakt. Als laatste heb ik de visualisatie togevoegt. Daarin maak in een lijst met tuples erin.
+Daarna kijkt hij welke waardes in voorkomen en geeft een string terug. Daarna wordt die string geprint.
+
+Toen ik klaar was met alles documenteerde ik alles en zorgen dat alle libraries goed werkten.
